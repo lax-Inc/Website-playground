@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lax Playground</title>
+    <link rel="icon" type="image/png" href="https://lax-lang.pp.ua/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="repl.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo-container">
+            <div class="mini-3d-logo"></div>
+            <span class="brand-name">Lax <span class="brand-sub">Playground</span></span>
+        </div>
+        <div class="nav-controls">
+            <input type="text" id="filename-input" placeholder="script.lx" class="filename-input">
+            <button class="btn btn-icon" onclick="downloadCode()" title="Download Code">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+            </button>
+            <button class="btn btn-icon" id="theme-toggle" onclick="toggleTheme()" title="Switch Theme">
+                <svg class="sun-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                <svg class="moon-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display:none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main class="workspace">
+        <section class="pane editor-pane">
+            <div class="pane-header">
+                <span class="pane-title">Editor</span>
+                <div class="pane-actions">
+                     <span id="syntax-status" class="status-indicator">Ready</span>
+                </div>
+            </div>
+            <div class="editor-container">
+                <pre id="highlighting" aria-hidden="true"><code class="language-lax" id="highlighting-content"></code></pre>
+                <textarea id="code-input" spellcheck="false" oninput="updateHighlighting(); checkBrackets();" onscroll="syncScroll(this)"></textarea>
+            </div>
+        </section>
+
+        <section class="pane terminal-pane">
+            <div class="pane-header">
+                <span class="pane-title">Terminal Output</span>
+                <div class="pane-actions">
+                    <span id="exec-time" class="exec-time"></span>
+                    <button class="btn btn-sm btn-clear" onclick="clearTerminal()">Clear</button>
+                    <button class="btn btn-sm btn-run" onclick="runLax()">
+                        <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20" style="margin-right:5px;"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/></svg>
+                        Run
+                    </button>
+                </div>
+            </div>
+            <div class="terminal-body" id="terminal-output">
+                <div class="term-line system-msg">Lax WebEnvironment v6.0.6</div>
+                <div class="term-line system-msg">Type code and press Run...</div>
+            </div>
+        </section>
+    </main>
+
+    <script src="lax_playground.js"></script> <script src="play.js"></script>    </body>
+</html>
